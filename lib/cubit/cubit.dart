@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/Sports.dart';
+import 'package:news_app/modules/favorite_screen.dart';
 import 'package:news_app/modules/home_screen.dart';
 import 'package:news_app/modules/business.dart';
 import 'package:news_app/modules/search_screen.dart';
 import 'package:news_app/modules/Science.dart';
+import 'package:news_app/modules/settings_screen.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 
@@ -18,9 +20,8 @@ class NewsCubit extends Cubit<NewsStates> {
   int currentIndex = 0;
   List<Widget> screens = [
     const HomeScreen(),
-    const SportsScreen(),
-    const ScienceScreen(),
-    const BusinessScreen(),
+    const FavoriteScreen(),
+    const SettingsScreen(),
   ];
 
   void changeBottomNav(int index) {
@@ -113,7 +114,7 @@ class NewsCubit extends Cubit<NewsStates> {
   }
 
   IconData iconLight = Icons.wb_sunny;
-  IconData iconDark = Icons.nights_stay;
+  IconData iconDark = Icons.nightlight;
 
   var light = ThemeMode.light;
   var dark = ThemeMode.dark;

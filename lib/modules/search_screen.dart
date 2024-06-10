@@ -9,7 +9,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer      <NewsCubit, NewsStates>(
+    return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var list = NewsCubit.get(context).search;
@@ -17,7 +17,7 @@ class SearchScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text('Search',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             centerTitle: true,
-            backgroundColor: Colors.blue,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
           body: Column(
             children: [

@@ -12,37 +12,43 @@ class NewsLayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = NewsCubit.get(context);
         return Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'Egypt News',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(screenHeight/15),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.0),bottomRight: Radius.circular(25.0)),
+              child: AppBar(
+                title: const Text(
+                  'Egypt News',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                centerTitle: true,
+                elevation: 5.0,
+                shadowColor: Colors.black,
+                actions: [
+                  IconButton(onPressed: (){
+                    navigateTo(context, SearchScreen());
+                  }, icon: Icon(Icons.search_rounded)),
+                  IconButton(onPressed: () {
+                    cubit.changeIconMode();
+                    cubit.changemode();
+                  },
+                      icon: Icon(cubit.iconBool ? cubit.iconDark : cubit.iconLight)),
+                ],
+              ),
             ),
-            centerTitle: true,
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-            elevation: 10.0,
-            shadowColor: Colors.black,
-            actions: [
-              IconButton(onPressed: (){
-                navigateTo(context, SearchScreen());
-              }, icon: Icon(Icons.search_rounded)),
-              IconButton(onPressed: () {
-                cubit.changeIconMode();
-                cubit.changemode();
-              },
-                  icon: Icon(cubit.iconBool ? cubit.iconDark : cubit.iconLight)),
-            ],
           ),
           body: NewsCubit.get(context)
               .screens[NewsCubit.get(context).currentIndex],
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
@@ -63,24 +69,20 @@ class NewsLayoutScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20, vertical: 12),
                   duration: const Duration(milliseconds: 400),
-                  tabBackgroundColor: Colors.grey[100]!,
-                  color: Colors.black,
+                  tabBackgroundColor: Colors.grey.shade300,
+                  color: Theme.of(context).unselectedWidgetColor,
                   tabs: const [
                     GButton(
-                      icon: LineIcons.home,
+                      icon: Icons.home,
                       text: 'Home',
                     ),
                     GButton(
-                      icon: LineIcons.footballBall,
-                      text: 'Sports',
+                      icon: Icons.favorite,
+                      text: 'Favorite',
                     ),
                     GButton(
-                      icon: Icons.science,
-                      text: 'Science',
-                    ),
-                    GButton(
-                      icon: Icons.business,
-                      text: 'Business',
+                      icon: Icons.settings,
+                      text: 'Settings',
                     ),
                   ],
                   selectedIndex: NewsCubit.get(context).currentIndex,

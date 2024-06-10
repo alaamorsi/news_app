@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
+    primaryColor: Colors.white,
+    unselectedWidgetColor: Colors.black,
     brightness: Brightness.light,
     primarySwatch: Colors.deepOrange,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white24,
         elevation: 0,
         titleTextStyle: TextStyle(
             color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
@@ -19,6 +21,8 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
+    primaryColor: Colors.black,
+    unselectedWidgetColor: Colors.white,
     brightness: Brightness.dark,
     primarySwatch: Colors.deepOrange,
     scaffoldBackgroundColor: Colors.black,
