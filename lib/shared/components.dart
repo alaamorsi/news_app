@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:news_app/cubit/webview_screen.dart';
+import 'package:news_app/layout/webview_screen.dart';
 
 Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       condition: list.length > 0,
       builder: (context) => ListView.separated(
         // physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) => BuiltArticleItem(list[index], context),
+        itemBuilder: (context, index) => builtArticleItem(list[index], context),
         separatorBuilder: (context, index) => myDivider(),
         itemCount: list.length,
       ),
-      fallback: (context) =>
-          isSearch ? Container() : Center(child: CircularProgressIndicator()),
+      fallback: (context) => isSearch
+          ? Container()
+          : const Center(child: CircularProgressIndicator()),
     );
 
 void navigateTo(context, widget) => Navigator.push(
@@ -29,7 +30,7 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       (Route<dynamic> rout) => false,
     );
 
-Widget BuiltArticleItem(article, context) => InkWell(
+Widget builtArticleItem(article, context) => InkWell(
       onTap: () {
         navigateTo(context, WebViewScreen(article['url']));
       },
@@ -44,17 +45,17 @@ Widget BuiltArticleItem(article, context) => InkWell(
                   borderRadius: BorderRadius.circular(10.0),
                   image: DecorationImage(
                     image: (article['urlToImage'] == null)
-                        ? AssetImage('assets/eg.jpg')
+                        ? const AssetImage('assets/eg.jpg')
                         : NetworkImage('${article['urlToImage']}')
                             as ImageProvider<Object>,
                     fit: BoxFit.fill,
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20.0,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 120.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,6 +108,7 @@ Widget defaultFormField({
   IconData? suffix,
   void Function()? suffixPressed,
   bool isClickable = true,
+  required BuildContext context,
 }) =>
     TextFormField(
       controller: controller,
@@ -119,6 +121,7 @@ Widget defaultFormField({
       validator: validate,
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(color: Theme.of(context).unselectedWidgetColor),
         prefixIcon: Icon(
           prefix,
         ),
@@ -130,8 +133,20 @@ Widget defaultFormField({
                 ),
               )
             : null,
-        border: OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderSide:
+              BorderSide(color: Theme.of(context).unselectedWidgetColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: Theme.of(context).unselectedWidgetColor), // Border color when the field is focused
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors
+                  .grey), // Border color when the field is enabled but not focused
+        ),
       ),
       cursorColor: Colors.blue,
-      style: TextStyle(fontSize: 20.0),
+      style: const TextStyle(fontSize: 20.0),
     );

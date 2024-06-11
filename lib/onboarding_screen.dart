@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/layout_screen.dart';
+import 'package:news_app/layout/layout_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   final PageController _pageController = PageController();

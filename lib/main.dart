@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/cubit/cubit.dart';
-import 'package:news_app/cubit/states.dart';
-import 'package:news_app/layout_screen.dart';
-import 'package:news_app/modules/home_screen.dart';
+import 'package:news_app/layout/cubit/cubit.dart';
+import 'package:news_app/layout/cubit/states.dart';
+import 'package:news_app/layout/layout_screen.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
-import 'package:news_app/onboarding_screen.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/bloc_observer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

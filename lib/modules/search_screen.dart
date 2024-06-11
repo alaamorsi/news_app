@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/cubit/cubit.dart';
-import 'package:news_app/cubit/states.dart';
+import 'package:news_app/layout/cubit/cubit.dart';
+import 'package:news_app/layout/cubit/states.dart';
 import 'package:news_app/shared/components.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -13,13 +13,7 @@ class SearchScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var list = NewsCubit.get(context).search;
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('Search',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-            centerTitle: true,
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          body: Column(
+        return Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -27,6 +21,7 @@ class SearchScreen extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   children: [
                     defaultFormField(
+                      context: context,
                       controller: searchController,
                       type: TextInputType.text,
                       onChanged: (value) {
@@ -46,8 +41,8 @@ class SearchScreen extends StatelessWidget {
                         searchController.clear();
                         NewsCubit.get(context).getSearch('?_?_?');
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 8.0),
                         child: Icon(Icons.clear),
                       ),
                     ),
@@ -56,8 +51,7 @@ class SearchScreen extends StatelessWidget {
               ),
               Expanded(child: articleBuilder(list, context, isSearch: true))
             ],
-          ),
-        );
+          );
       },
     );
   }
